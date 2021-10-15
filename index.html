@@ -1,3 +1,4 @@
+
 <html>
 <body>
 <p>All AMP URLS</p>
@@ -9,14 +10,11 @@
     <a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/">AMP 3</a>
     <br>
 
- <p id="one"></p>
-<button onclick="random()">Bust cache</button>
-
 <script>
- function random(){
-
-document.getElementById("one").innerHTML = Math.floor(Math.random() * 10);
-}
+  window.onload = () => {
+    document.querySelectorAll("a").forEach(link =>
+      link.href += "?cachebust=" + (Math.random() + 1).toString(36).substring(7)
+    );
+  };
 </script>
-
 </body>
