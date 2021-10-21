@@ -1,75 +1,103 @@
-
+<!DOCTYPE html>
 <html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
 <body>
-<p>Prod AMP URLS</p>
-    <br>
-    <a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?">AMP 1</a>
-    <br>
-    <a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?">AMP 2</a>
-    <br>
-    <a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?">AMP 3</a>
-    <br>
-    
-<p>AMP URLS --- Bucket Y</p>
-    <br>
-    <a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=y&">AMP 1</a>
-    <br>
-    <a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=y&">AMP 2</a>
-    <br>
-    <a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=y&">AMP 3</a>
-    <br>
-    
-<p>AMP URLS --- Bucket H</p>
-    <br>
-    <a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=H&">AMP 1</a>
-    <br>
-    <a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=H&">AMP 2</a>
-    <br>
-    <a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=H&">AMP 3</a>
-    <br>
-    
-<p>AMP URLS --- Bucket Z</p>
-    <br>
-    <a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=Z&">AMP 1</a>
-    <br>
-    <a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=Z&">AMP 2</a>
-    <br>
-    <a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=Z&">AMP 3</a>
-    <br>
-    
-  <p>Non-AMP URLS --- PROD</p>
-    <br>
-    <a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?">Premium Article</a>
-    <br>
-    <a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?">Standard Article</a>
-    <br>
-    <a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?">Shopping Article</a>
-    <br>  
 
-<h3>Steps to reproduce</h3>
-<ul>
-    <li>Open safari on incognito on ios15 device</li>
-    <li>Search for Forbes.</li>
-    <li>Go to forbes homepage from search result</li>
-    <li>Open the cover story or any article from homepage</li>
-    <li>Go back by clicking back button of safari to google search result.</li>
-  	<li>Click on any article search result to open an amp page</li>
-    <li>Scroll down the page, and you will see empty content.</li>
-</ul>
+<h2>Prod</h2>
 
-<h3>OR follow this multiple times to reproduce</h3> 
-   <ul>
-    <li>Open safari on incognito on ios15 device</li>
-    <li>Open non-AMP Articles </li>
-  	<li>Go back and open amp page</li>
-    <li>Scroll down the page, and you will see empty content.</li>
-</ul> 
- 
-<script>
-  window.onload = () => {
-    document.querySelectorAll("a").forEach(link =>
-      link.href += "cachebust=" + (Math.random() + 1).toString(36).substring(7)
-    );
-  };
-</script>
+<table>
+  <tr>
+    <th>AMP</th>
+    <th>Non AMP</th>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?">AMP 1</a></td>
+    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?">Premium Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?">AMP 2</a></td>
+    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?">Standard Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?">AMP 3</a></td>
+    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?">Shopping Article</a></td>
+  </tr>
+</table>
+<h2>Bukcet Y</h2>
+<table>
+  <tr>
+    <th>AMP</th>
+    <th>Non AMP</th>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=y&">AMP 1</a></td>
+    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?malcolm=y&">Premium Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=y&">AMP 2</a></td>
+    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?malcolm=y&">Standard Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=y&">AMP 3</a></td>
+    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?malcolm=y&">Shopping Article</a></td>
+  </tr>
+</table>
+<h2>Bukcet H</h2>
+<table>
+  <tr>
+    <th>AMP</th>
+    <th>Non AMP</th>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=h&">AMP 1</a></td>
+    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?malcolm=h&">Premium Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=h&">AMP 2</a></td>
+    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?malcolm=h&">Standard Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=h&">AMP 3</a></td>
+    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?malcolm=h&">Shopping Article</a></td>
+  </tr>
+</table>
+<h2>Bukcet Z</h2>
+<table>
+  <tr>
+    <th>AMP</th>
+    <th>Non AMP</th>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=z&">AMP 1</a></td>
+    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?malcolm=z&">Premium Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=z&">AMP 2</a></td>
+    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?malcolm=z&">Standard Article</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=z&">AMP 3</a></td>
+    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?malcolm=z&">Shopping Article</a></td>
+  </tr>
+</table>
 </body>
+</html>
+
