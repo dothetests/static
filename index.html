@@ -1,103 +1,701 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>0DTE SPX Credit Spread Trading Bible</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --accent: #22d3ee;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: #1f2937;
+    }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.08), transparent 25%),
+        radial-gradient(circle at 80% 0%, rgba(94, 234, 212, 0.08), transparent 20%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero {
+      padding: 32px 24px 16px;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 36px);
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 8px 24px 18px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(34, 211, 238, 0.12);
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .toolbar {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+
+    .toolbar input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0b1222;
+      color: var(--text);
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .toolbar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(34, 211, 238, 0.18);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+      color: #a5f3fc;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--text);
+      font-size: 12px;
+      border: 1px solid rgba(34, 211, 238, 0.4);
+    }
+
+    details.accordion {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(17, 24, 39, 0.7);
+      padding: 14px 16px;
+      transition: border 0.2s ease, transform 0.2s ease;
+    }
+
+    details.accordion[open] {
+      border-color: var(--accent);
+      box-shadow: 0 12px 30px rgba(34, 211, 238, 0.12);
+      transform: translateY(-1px);
+    }
+
+    details summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: #e0f2fe;
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .section-body {
+      margin-top: 12px;
+      color: var(--muted);
+    }
+
+    ul, ol {
+      padding-left: 18px;
+      margin: 8px 0;
+    }
+
+    .two-col {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .note {
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px dashed var(--accent);
+      background: rgba(34, 211, 238, 0.08);
+      color: var(--text);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .floating-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: #0b1222;
+      padding: 10px 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 12px 30px rgba(34, 211, 238, 0.25);
+      font-weight: 700;
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+      }
+      .toolbar {
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header id="top">
+    <div class="hero">
+      <div>
+        <p class="pill">GPT-5.1-Codex-Max · 0DTE System</p>
+        <h1>0DTE SPX Credit Spread Trading Bible</h1>
+        <p class="tagline">Systematic strike selection, non-negotiable risk management, and mechanical execution for disciplined traders.</p>
+      </div>
+      <div class="note">
+        <strong>Quick Start:</strong>
+        <ul>
+          <li>Trade Mon/Wed/Fri only; avoid VIX &gt; 30 and major news windows.</li>
+          <li>Standard: 10-point spreads, 5–12 delta, stop at 3× credit on the short leg only.</li>
+          <li>Max daily loss: 2% of account; buying power cap: 50% of account.</li>
+        </ul>
+      </div>
+    </div>
+    <nav>
+      <a href="#account">Account</a>
+      <a href="#pre-market">Pre-Market</a>
+      <a href="#bias">Directional Bias</a>
+      <a href="#strikes">Strike Selection</a>
+      <a href="#sizing">Position Sizing</a>
+      <a href="#entry">Entry &amp; Stops</a>
+      <a href="#profit">Profit Mgmt</a>
+      <a href="#advanced">Advanced</a>
+      <a href="#checklists">Checklists</a>
+      <a href="#psychology">Mindset</a>
+      <a href="#faq">FAQ</a>
+      <a href="#oath">Oath</a>
+    </nav>
+  </header>
 
-<h2>Prod</h2>
+  <main>
+    <section class="toolbar">
+      <input id="search" type="search" placeholder="Filter sections: e.g., 'implied move', 'iron condor', 'stop loss'" aria-label="Filter content" />
+      <div class="note">Use the filter to quickly surface matching sections. Each accordion keeps the full rule set accessible.</div>
+    </section>
 
-<table>
-  <tr>
-    <th>AMP</th>
-    <th>Non AMP</th>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?">AMP 1</a></td>
-    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?">Premium Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?">AMP 2</a></td>
-    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?">Standard Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?">AMP 3</a></td>
-    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?">Shopping Article</a></td>
-  </tr>
-</table>
-<h2>Bukcet Y</h2>
-<table>
-  <tr>
-    <th>AMP</th>
-    <th>Non AMP</th>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=y&">AMP 1</a></td>
-    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?malcolm=y&">Premium Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=y&">AMP 2</a></td>
-    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?malcolm=y&">Standard Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=y&">AMP 3</a></td>
-    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?malcolm=y&">Shopping Article</a></td>
-  </tr>
-</table>
-<h2>Bukcet H</h2>
-<table>
-  <tr>
-    <th>AMP</th>
-    <th>Non AMP</th>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=h&">AMP 1</a></td>
-    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?malcolm=h&">Premium Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=h&">AMP 2</a></td>
-    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?malcolm=h&">Standard Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=h&">AMP 3</a></td>
-    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?malcolm=h&">Shopping Article</a></td>
-  </tr>
-</table>
-<h2>Bukcet Z</h2>
-<table>
-  <tr>
-    <th>AMP</th>
-    <th>Non AMP</th>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/nicholasreimann/2021/10/13/georgia-senate-candidate-herschel-walker-reportedly-cancels-event-after-backlash-over-swastika-image/amp/?malcolm=z&">AMP 1</a></td>
-    <td><a href="https://www.forbes.com/sites/mikeozanian/2021/10/18/the-nbas-most-valuable-teams-2021-22-new-york-knicks-lead-a-trio-now-worth-over-5-billion-each/?malcolm=z&">Premium Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/joewalsh/2021/10/14/capitol-riot-committee-will-vote-on-criminal-contempt-for-steve-bannon---heres-what-happens-next/amp/?malcolm=z&">AMP 2</a></td>
-    <td><a href="https://www.forbes.com/sites/davidaxe/2021/10/16/report-china-has-tested-a-nuke-that-can-dodge-american-radars/?malcolm=z&">Standard Article</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.forbes.com/sites/paultassi/2021/10/14/genshin-impact-deletes-bizarre-elon-musk-contest-tweets-elon-musk-responds/amp/?malcolm=z&">AMP 3</a></td>
-    <td><a href="https://www.forbes.com/sites/forbes-personal-shopper/2021/10/15/classic-interior-design/?malcolm=z&">Shopping Article</a></td>
-  </tr>
-</table>
+    <section class="grid">
+      <div class="card">
+        <h3>Philosophy</h3>
+        <p>0DTE removes overnight risk but increases intraday gamma. Success comes from aligning strategy with risk tolerance and executing it mechanically.</p>
+        <div class="pill">Three pillars: strikes · risk · execution</div>
+      </div>
+      <div class="card">
+        <h3>Core Rules</h3>
+        <ul>
+          <li>Stop trading for the day at -2% account P&amp;L.</li>
+          <li>Stops: 3× credit on the <strong>short leg only</strong> (market order).</li>
+          <li>Close all 0DTE positions by 3:45 PM ET.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>When to Stand Down</h3>
+        <ul>
+          <li>VIX &gt; 30 or spikes &gt; 15% intraday.</li>
+          <li>Major news within 2 hours (FOMC, CPI, NFP, Fed chair).</li>
+          <li>Emotional, distracted, or after hitting daily loss.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="account">
+      <details class="accordion" open>
+        <summary>Account Setup &amp; Platform</summary>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <h4>Prerequisites</h4>
+              <ul>
+                <li>$25k minimum (pattern day trader); $50k+ ideal.</li>
+                <li>Low commissions (≤ $0.65/contract) and direct access for stops.</li>
+                <li>Ability to read Greeks; familiarity with VIX and SPX behavior.</li>
+                <li>At least 20 practice trades completed.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Platform Layout</h4>
+              <ul>
+                <li>SPX 5-min with prior day high/low; VIX daily; /ES futures.</li>
+                <li>Optional: market internals (ADD, TICK, VOLD) and SPY holdings heat map.</li>
+                <li>Data feeds: real-time SPX chain, implied move, volume by strike.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="note">Edge: systematic strike selection, non-negotiable risk management, mechanical execution.</div>
+        </div>
+      </details>
+    </section>
+
+    <section id="pre-market">
+      <details class="accordion">
+        <summary>Pre-Market Preparation Protocol (15 minutes)</summary>
+        <div class="section-body">
+          <ol>
+            <li><strong>Economic calendar</strong>: note high-impact events; avoid 1 hour before/after FOMC, CPI, NFP, Fed chair.</li>
+            <li><strong>/ES futures</strong>: &gt;1% move = trend day → Gap Hunter only; &lt;0.3% = neutral, prefer condors.</li>
+            <li><strong>VIX</strong>:
+              <ul>
+                <li>&lt;15: low premium; consider 10–15 delta, iron condors.</li>
+                <li>15–20: sweet spot; standard rules.</li>
+                <li>20–30: rich premium; 5–10 delta further OTM; delay entries.</li>
+                <li>&gt;30: <strong>do not trade</strong>.</li>
+              </ul>
+            </li>
+            <li><strong>SPY top holdings</strong>: weight green vs red to set bias (strong bullish &gt;+20, strong bearish &lt;-20).</li>
+            <li><strong>Daily implied move</strong>: anchor strike boundaries at ± expected move (e.g., ATM straddle × 0.6 ÷ 2).</li>
+            <li><strong>Set intention</strong>: choose bias, strategy (PUT/CALL/IC/Gap Hunter), entry window, and position size.</li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <section id="bias">
+      <details class="accordion">
+        <summary>Directional Bias Decision Matrix</summary>
+        <div class="section-body two-col">
+          <div>
+            <h4>🟢 Bullish → Sell PUT Spreads</h4>
+            <ul>
+              <li>VIX declining &gt;3% or in contango.</li>
+              <li>SPY holdings 7+ green or weighted score &gt;+15.</li>
+              <li>SPX above prior close; internals supportive (ADD &gt;+500, TICK &gt;+200).</li>
+            </ul>
+          </div>
+          <div>
+            <h4>🔴 Bearish → Sell CALL Spreads</h4>
+            <ul>
+              <li>VIX rising &gt;3% or backwardation.</li>
+              <li>SPY holdings 7+ red or score &lt;-15.</li>
+              <li>SPX below prior close; internals weak (ADD &lt;-500, TICK &lt;-200).</li>
+            </ul>
+          </div>
+        </div>
+        <div class="note">⚪ Neutral → Iron Condor when VIX flat (&lt;20), mixed holdings, tight range (&lt;0.3% after 30 min) and prior day range &lt;0.8%.</div>
+        <div class="note">✨ Gap Hunter: use only on ±1% gaps; wait for midday support/resistance, sell 10-delta spread beyond that level, set GTC at 30% profit.</div>
+      </details>
+    </section>
+
+    <section id="strikes">
+      <details class="accordion">
+        <summary>Three-Method Strike Validation</summary>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <h4>Method 1: Delta (Primary)</h4>
+              <ul>
+                <li>Low VIX: 10–15 delta; Normal: 8–12; High: 5–10; &gt;30 VIX: skip.</li>
+                <li>Example at SPX 5,500: low VIX PUT 5,440 (12Δ); normal PUT 5,430 (8Δ); high PUT 5,410 (5Δ).</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Method 2: Implied Move</h4>
+              <ul>
+                <li>Place shorts at/ beyond ± expected move boundary.</li>
+                <li>If delta strike is inside boundary → wait/skip.</li>
+                <li>Example: SPX 5,500, move ±20 → PUT ≤5,480, CALL ≥5,520.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="two-col">
+            <div>
+              <h4>Method 3: Volume by Strike</h4>
+              <ul>
+                <li>Identify Max Put (support) and Max Call (resistance) volume on 0DTE chain.</li>
+                <li>PUT short at/below Max Put; CALL short at/above Max Call.</li>
+              </ul>
+            </div>
+            <div class="note">
+              Trade only when all three align (high probability). If only two align → half size; one → no trade.
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>Spread Width Strategy</summary>
+        <div class="section-body two-col">
+          <div>
+            <h4>Standard (90%): 10-point</h4>
+            <ul>
+              <li>Manageable $1,000 max loss/contract; good premium (15–25% of width).</li>
+              <li>Default for normal conditions and clearer setups.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Alternatives</h4>
+            <ul>
+              <li>5-point: faster theta, faster to max loss; use when credit &gt;15% width.</li>
+              <li>20–25 point: use rarely (10% of trades) in high VIX or Gap Hunter with conviction; behaves closer to naked.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="note">Never sell for &lt;15% of width. Example minimums: 5-pt ≥$0.75; 10-pt ≥$1.50; 20-pt ≥$3.00.</div>
+      </details>
+    </section>
+
+    <section id="sizing">
+      <details class="accordion">
+        <summary>Position Sizing – The Survival Formula</summary>
+        <div class="section-body">
+          <ol>
+            <li>Max daily loss = 2% of account. Example $50k → $1,000.</li>
+            <li>Decide trades/day (1–2). Max loss per trade = daily max ÷ trades.</li>
+            <li>Max credit per trade = per-trade loss ÷ 2 (stop ~2× credit).</li>
+            <li>Contracts = max credit ÷ credit per contract.</li>
+            <li>Verify buying power: contracts × width × $100 ≤ 50% of account.</li>
+          </ol>
+          <div class="two-col">
+            <div>
+              <h4>Examples (10-pt)</h4>
+              <ul>
+                <li>$25k: max loss $500 → max credit $500 → 2 contracts @ $2.50 (BP $20k).</li>
+                <li>$50k: max loss $1k → 4 contracts @ $2.50 (BP $40k).</li>
+              </ul>
+            </div>
+            <div class="note">Iron condor counts as one trade; credit = both sides. Adjust down if BP exceeds 50%.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="entry">
+      <details class="accordion">
+        <summary>Entry Timing &amp; Execution</summary>
+        <div class="section-body two-col">
+          <div>
+            <h4>Windows</h4>
+            <ul>
+              <li>Early (9:40–9:45 ET): capture higher IV; use when bias clear, VIX &lt;18.</li>
+              <li>Delayed (10:00–10:30): for high VIX, gaps &gt;0.5%, mixed signals.</li>
+              <li><strong>Never</strong> enter after 3:30 PM; close by 3:45 PM.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Order Flow</h4>
+            <ul>
+              <li>Use limit entries near mid; adjust by $0.05 if no fill.</li>
+              <li>Beginners: enter iron condor as one order; advanced traders can leg.</li>
+              <li>Confirm fill, recalc stops, set alerts within 2 minutes.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>Stop Loss Strategy (Non-Negotiable)</summary>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <h4>Primary Rule</h4>
+              <ul>
+                <li>Stop triggers when short leg premium = 3× initial credit (market order).</li>
+                <li>Net loss ≈ 2× credit; prevents naked risk when long leg decays.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Placement</h4>
+              <ul>
+                <li>Stop on <strong>short leg only</strong>; full-spread stops can fail late day.</li>
+                <li>Iron condor: separate stops per side using each side's credit.</li>
+                <li>Time overrides: down 100% by noon or 150% by 2 PM → consider exit.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="note">Use market stops for certainty; slippage is acceptable versus unlimited risk. VIX spike &gt;15% intraday → flatten immediately.</div>
+        </div>
+      </details>
+    </section>
+
+    <section id="profit">
+      <details class="accordion">
+        <summary>Profit Targets &amp; Management</summary>
+        <div class="section-body">
+          <ul>
+            <li>Directional spreads: target 60–75% profit; often 2–4 hours.</li>
+            <li>Iron condors: 50% profit or $0.10–$0.20 remaining; close winner side early.</li>
+            <li>Use GTC to close at target; ratchet stop to breakeven after 50% profit (advanced).</li>
+          </ul>
+          <div class="note">Close everything by 3:45 PM. Gap Hunter: GTC at 30% profit immediately after entry.</div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>Managing Stopped Positions</summary>
+        <div class="section-body two-col">
+          <div>
+            <h4>After Stop Hits</h4>
+            <ul>
+              <li>Breathe; log loss; reassess remaining daily risk.</li>
+              <li>Evaluate long leg value—can offset or exceed loss in strong trend.</li>
+              <li>Wait 15–30 minutes before any re-entry; require fresh alignment.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Re-Entry Rules</h4>
+            <ul>
+              <li>Use same delta at new, farther OTM strike; reduce size.</li>
+              <li>Iron condor with one side stopped: close all if near loss limit or after 2 PM; otherwise manage remaining side cautiously.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="advanced">
+      <details class="accordion">
+        <summary>Advanced Tactics &amp; Market Adaptation</summary>
+        <div class="section-body">
+          <div class="two-col">
+            <div>
+              <h4>VIX-Based Adjustments</h4>
+              <ul>
+                <li>Low VIX: 12–15 delta, prefer iron condors, anchor to prior high/low, consider 1–2 DTE.</li>
+                <li>Normal: standard 8–12 delta.</li>
+                <li>High (20–30): 5–8 delta, delay entries, consider wider spreads; close profits early.</li>
+                <li>Very High (&gt;30): do not trade 0DTE.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Gap &amp; Breadth Signals</h4>
+              <ul>
+                <li>Small gap &lt;0.7%: normal rules.</li>
+                <li>Medium 0.7–1.5%: trend continuation bias; tighten deltas.</li>
+                <li>Large &gt;1.5%: Gap Hunter only.</li>
+                <li>Internals alignment strengthens conviction; divergence can signal fades.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="note">SPY holdings give leadership signal: tech-heavy weakness can justify CALL spreads even if SPX is green; inverse logic for dips.</div>
+        </div>
+      </details>
+    </section>
+
+    <section id="checklists">
+      <details class="accordion">
+        <summary>Complete Daily Checklists</summary>
+        <div class="section-body">
+          <h4>Pre-Market</h4>
+          <ul>
+            <li>News/earnings cleared; /ES gap noted; prior high/low marked; VIX level &amp; change recorded.</li>
+            <li>Holdings score calculated; implied move boundaries plotted; strategy &amp; size chosen.</li>
+          </ul>
+          <h4>Entry</h4>
+          <ul>
+            <li>Three-method validation ✓; width/credit ≥15%; buying power ≤50%.</li>
+            <li>Stop = 3× credit on short leg; profit target set; alerts placed.</li>
+          </ul>
+          <h4>Post-Entry</h4>
+          <ul>
+            <li>Confirm fill, stops working, journal entries recorded.</li>
+            <li>Check every 30–60 min: P&amp;L, VIX spike, distance to strike.</li>
+          </ul>
+          <h4>End of Day</h4>
+          <ul>
+            <li>Close all by 3:45 PM; compute P&amp;L; review rule adherence; note lessons.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>Quick Reference Cards</summary>
+        <div class="section-body two-col">
+          <div>
+            <h4>Trade Entry</h4>
+            <ul>
+              <li>Days: Mon/Wed/Fri; avoid VIX &gt;30/news.</li>
+              <li>Delta 8–12 (normal); 5–10 (high); 10–15 (low).</li>
+              <li>Implied move + Max Put/Call alignment; width 10pt default.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Stop &amp; Targets</h4>
+            <ul>
+              <li>Stop: 3× credit on short leg, market order.</li>
+              <li>Profit: 50–75% (or $0.10–$0.20); Gap Hunter 30% GTC.</li>
+              <li>Close by 3:45 PM; never hold through close.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="psychology">
+      <details class="accordion">
+        <summary>Trading Psychology &amp; Discipline</summary>
+        <div class="section-body">
+          <ul>
+            <li>Affirmations: trade the plan, protect capital, accept losses.</li>
+            <li>Triggers: revenge, FOMO, overtrading, hope, frustration → enforce breaks and rule checks.</li>
+            <li>Three-strike rule for violations: warning → probation (size -50%) → 1-week suspension.</li>
+            <li>Drawdown protocol: -5–10% reduce risk; -10–20% 1% risk, 1 trade/day; &gt;20% stop live trading 2 weeks.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>Journaling &amp; Performance Tracking</summary>
+        <div class="section-body two-col">
+          <div>
+            <h4>Daily Log</h4>
+            <ul>
+              <li>Record environment (VIX, /ES gap, holdings), strikes, deltas, credit, stop, target, alignment status.</li>
+              <li>Outcome, P&amp;L, rule adherence, emotional state, lessons.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Weekly/Monthly Reviews</h4>
+            <ul>
+              <li>Compute win rate, expectancy, drawdown, best/worst setups.</li>
+              <li>Scaling only after 3 profitable months, &gt;65% win, &lt;15% DD, 90% rule compliance.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <details class="accordion" id="faq">
+        <summary>FAQ Highlights</summary>
+        <div class="section-body">
+          <ul>
+            <li><strong>Trade daily?</strong> Prefer Mon/Wed/Fri only; skip high VIX/news/unclear setups.</li>
+            <li><strong>IC vs single spreads?</strong> Start with singles; add IC after 2–3 profitable months.</li>
+            <li><strong>Why not 30 delta?</strong> Too close for 0DTE; 5–12 delta improves probability.</li>
+            <li><strong>Platform time constraints?</strong> Use stops + GTC; check at 10a/12p/2p; if unavailable, consider 1–2 DTE.</li>
+            <li><strong>Adjustments?</strong> Rarely effective in 0DTE; better to stop and re-enter fresh.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="accordion" id="oath">
+        <summary>Trading Oath &amp; Reality Check</summary>
+        <div class="section-body">
+          <div class="note">
+            I will cap daily loss at 2%, use stops on the short leg, validate strikes with delta + implied move + volume, close by 3:45 PM, and journal every trade.
+          </div>
+          <p>70% of 0DTE traders lose money due to ignoring risk. Discipline—not a secret formula—creates the edge. Commit to the process, the long game, and continuous learning.</p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <a class="floating-top" href="#top">Back to top ↑</a>
+
+  <footer>
+    Built for interactive study: filter, expand, and apply each rule mechanically. Stay safe; trade your plan.
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('search');
+    const accordions = Array.from(document.querySelectorAll('details.accordion'));
+
+    function filterSections(query) {
+      const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      accordions.forEach(section => {
+        const text = section.textContent.toLowerCase();
+        const match = terms.every(term => text.includes(term));
+        section.classList.toggle('hidden', terms.length && !match);
+        if (!terms.length) section.classList.remove('hidden');
+      });
+    }
+
+    searchInput.addEventListener('input', (e) => filterSections(e.target.value));
+  </script>
 </body>
 </html>
-
